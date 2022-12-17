@@ -1,27 +1,40 @@
-const { Schema, Types } = require('mongoose')
+const { Schema, model, Types } = require('mongoose')
+// Schema: when building a schema?
+// model: when building a model?
+// Types
 
 const thoughtSchema = new Schema(
     {
         thoughtText: {
             type: String,
             required: true,
-            // length
+            min_length: 1,
+            max_length: 280,
         },
         createdAt: {
             type: Date,
-            default: Date.now,
-            // getter method
+            // Reference: 28-Stu_Mini-Project > models > Course.js
+            default: Date.now, // ACTION: research
+            // TODO: Use a getter method to format the timestamp on query
         },
-        username: [userSchema], // Can you cross reference?
-        reactions: {
-            // reactionSchema
-        }
+        // TODO: String, Required (The user that created this thought)
+        // STATUS: research
+        username: [], 
+        // TODO: Array of nested documents created with the reactionSchema
+        // STATUS: test
+        // Reference: 18-Stu_Subdocuments, 23-Ins_Subdoc-Population
+        reactions: [reactionSchema]
     },
     {
         toJSON: {
             getters: true,
+            virtuals: true, // Is this required for virtuals? Is this the right syntax? 
         }
     }
 )
 
-module.exports = thoughtSchema
+// TODO: Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+
+const Thought = model('thought', thoughtSchema)
+
+module.exports = Thought
