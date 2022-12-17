@@ -1,0 +1,1 @@
+// Not a model, but a subdocument schema in the Thought model. It will be the reaction field. 
