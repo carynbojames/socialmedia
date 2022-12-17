@@ -3,6 +3,8 @@ const { Schema, model, Types } = require('mongoose')
 // model: when building a model?
 // Types
 
+const reactionSchema = require('./Reaction') // must be called to be referenced below
+
 const thoughtSchema = new Schema(
     {
         thoughtText: {
