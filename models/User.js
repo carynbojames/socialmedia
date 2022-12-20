@@ -1,5 +1,3 @@
-// STATUS: test
-
 const { Schema, model } = require('mongoose') 
 const thoughtSchema = require('./Thought')
 
@@ -18,6 +16,7 @@ const userSchema = new Schema(
 				unique: true,
 				// TODO match: //RegExp, creates a validator that checks if the value matches the given regular expression
 				// STATUS: research
+				match: [/.+@.+\..+/]
 		  },
 		  // TODO: Array of _id values referencing the Thought model
 		  // STATUS: test
@@ -25,7 +24,7 @@ const userSchema = new Schema(
 		  thoughts: [
 				{
 					 type: Schema.Types.ObjectId,
-					 ref: 'thought' // require not required for this
+					 ref: 'thought' 
 				}
 		  ],
 		  // STATUS: Not required. Test. 
@@ -35,18 +34,20 @@ const userSchema = new Schema(
 		  // STATUS: test
 		  friends: [{ type: Schema.Types.ObjectId, ref: 'user'}]
 	 },
+	 // This section is not required. Reference: 11-Ins_Models-Schema
 	 {
 		  toJSON: {
-				getters: true,
+				getters: true, // not needed
 				virtuals: true, // Is this required for virtuals? Is this the right syntax? 
-		  }
+		  },
+		  id: false // prevents the redundant id that so that there isn't both _id and id
 	 }
 )
 
 // TODO: Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
 // STATUS: test
 // Reference: 21-Ins_Virtuals > models > Post.js
-userSchema.virtual('friendsCount').get(function () {
+userSchema.virtual('friendCount').get(function () {
 	 return this.friends.length;
 })
 
