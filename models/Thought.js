@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose')
+const { Schema, model } = require('mongoose')
 // Schema: when building a schema?
 // model: when building a model?
 // Types: not required in this example; what does it do?
@@ -50,7 +50,7 @@ const thoughtSchema = new Schema(
 )
 
 // TODO: Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
-userSchema.virtual('reactionCount').get(function () {
+thoughtSchema.virtual('reactionCount').get(function () {
 	return this.reactions.length;
 })
 

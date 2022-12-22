@@ -3,6 +3,8 @@
 
 const { Schema } = require('mongoose')
 
+const formatDate = require('../utils/formatDate')
+
 const reactionSchema = new Schema(
 	{
 		// TODO: (1) Use Mongoose's ObjectId data type, (2) Default value is set to a new ObjectId
@@ -26,9 +28,10 @@ const reactionSchema = new Schema(
 			default: Date.now,
 			// TODO: Use a getter method to format the timestamp on query
 			// STATUS: test
-			get: function(v) {
-				return v.toLocaleString()
-			}
+			get: timestamp => formatDate(timestamp)
+			// get: function(v) {
+			// 	return v.toLocaleString()
+			// }
 		}
 	},
 	{

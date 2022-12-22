@@ -37,7 +37,7 @@ const userSchema = new Schema(
 	 // This section is not required. Reference: 11-Ins_Models-Schema
 	 {
 		  toJSON: {
-				getters: true, // not needed
+				// getters: true, // not needed
 				virtuals: true, // Is this required for virtuals? Is this the right syntax? 
 		  },
 		  id: false // prevents the redundant id that so that there isn't both _id and id
