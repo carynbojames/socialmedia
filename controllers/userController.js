@@ -51,6 +51,7 @@ module.exports = {
 				}) 
 		},
 
+		// Action
 		// TODO: Delete to remove user by its _id
 		deleteUser(req, res){
 			User.findOneAndRemove(
@@ -66,13 +67,28 @@ module.exports = {
 		},
 
 
+		//  3:20:00
 		// Route - /api/users/:userId/friends/:friendId
 		// TODO: Post to add a new friend to a user's friend list
-		addFriend(req, res){},
+		addFriend(req, res){
+			User.findOneAndUpdate(
+				{ _id: req.params.userId },
+				{ $addToSet: { friends: req.params.friendId }},
+				{ new: true }
+			)
+			.then((user) => 
+				!user
+					? res.status(404).json({ message: 'No user with this id' })
+					: res.json(user)
+			)
+			.catch((err) => {
+				console.log(err)
+				res.status(500).json(err)
+			})
+		},
 
 		// TODO: Delete to remove a friend from a user's friend list
-		removeFriend(req, res){}
-
+		removeFriend(req, res){},
 	}
 
 // Reference: 26-Stu_CRUD-Subdoc
