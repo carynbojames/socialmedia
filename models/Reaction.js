@@ -30,6 +30,11 @@ const reactionSchema = new Schema(
 				return v.toLocaleString()
 			}
 		}
+	},
+	{
+		toJSON: {
+			getters: true
+		}
 	}
 )
 
