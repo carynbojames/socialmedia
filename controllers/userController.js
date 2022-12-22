@@ -1,7 +1,10 @@
-const { ObjectId } = require('mongoose').Types // Is this required? 
+const { ObjectId } = require('mongoose').Types 
+// Is this required? Yes, it creates the connection between the controllers and routes
+
 const { User, Thought } = require('../models')
 
 module.exports = {
+		// Route - /api/users
 		// TODO: Post a new user
 		createUser(req, res){
 			User.create(req.body)
@@ -16,6 +19,7 @@ module.exports = {
 				.catch((err) => res.status(500).json(err))
 		},
 
+		// Route - /api/users/:userId
 		// TODO: Get a single user by its _id and populated thought and friend data
 		// Thought and friend data is populated from the model
 		getSingleUser(req, res){
@@ -30,7 +34,7 @@ module.exports = {
 		},
 
 		// TODO: Put to update a user by its _id
-		updateuser(req, res){
+		updateUser(req, res){
 			User.findOneAndUpdate(
 				{ _id: req.params.userId },
 				{ $set: req.body },
@@ -49,15 +53,25 @@ module.exports = {
 
 		// TODO: Delete to remove user by its _id
 		deleteUser(req, res){
-			User.findOneAndDelete({ _id: req.params.userId })
-				.then((user) => 
-					!user
-						? res.status(404).json({ message: 'No user with that ID' })
-						: User.deleteMany({ _id: { $in: user.applications }}) // ?
-				)
+			User.findOneAndRemove(
+					{ _id: req.params.userId })
+				.then((user) => {
+					if (!user) {
+						return res.status(404).json({ message: 'No user with this id' })
+					}
+					Thought.deleteMany({ _id: { $in: user.thoughts }})
+				})
 				.then(() => res.json({ message: 'User and associated apps deleted!' }))
 				.catch((err) => res.status(500).json(err))
-		}
+		},
+
+
+		// Route - /api/users/:userId/friends/:friendId
+		// TODO: Post to add a new friend to a user's friend list
+		addFriend(req, res){},
+
+		// TODO: Delete to remove a friend from a user's friend list
+		removeFriend(req, res){}
 
 	}
 
