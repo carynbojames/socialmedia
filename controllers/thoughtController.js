@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types
-const { Thought } = require('../models')
+const { Thought, Reaction } = require('../models')
 
 module.exports = {
 	// Route - /api/thoughts
@@ -49,11 +49,25 @@ module.exports = {
 				console.log(err)
 				res.status(500).json(err)
 			})
-	}
+	},
 
 	// Delete to remove a thought by its _id
+	deleteThought(req, res){
+		Thought.findOneAndRemove(
+			{ _id: req.params.thoughtId })
+			.then((thought) => {
+				if (!thought) {
+					return res.status(404).json({
+						message: 'No thought with this id'})
+				}
+				Thought.deleteMany({ _id: { $in: thought.reaction }}) /// ???
+			})
+			.then(() => res.json({ message: 'Thought and associated apps deleted'}))
+			.catch((err) => res.status(500).json(err))
+	}
 
 	// Route - /api/thoughts/:thoughtId/reactions
+
 
 	// Post to create a reaction stored in a single thought's reactions array field
 

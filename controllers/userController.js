@@ -88,7 +88,22 @@ module.exports = {
 		},
 
 		// TODO: Delete to remove a friend from a user's friend list
-		removeFriend(req, res){},
+		removeFriend(req, res){
+			User.findOneAndRemove(
+				{ _id: req.params.userId },
+				{ $pull: { friends: req.params.friendId }},
+				{ new: true }
+			)
+			.then((user) => 
+				!user
+					? res.status(404).json({ message: "No user of friend with this id" })
+					: res.json(user)
+			)
+			.catch((err) => {
+				console.log(err)
+				res.status(500).json(err)
+			})
+		},
 	}
 
 // Reference: 26-Stu_CRUD-Subdoc

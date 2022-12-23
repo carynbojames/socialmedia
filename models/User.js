@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose') 
-const thoughtSchema = require('./Thought')
+// const thoughtSchema = require('./Thought')
 
 const userSchema = new Schema(
 	 {
@@ -29,7 +29,7 @@ const userSchema = new Schema(
 		  ],
 		  // STATUS: Not required. Test. 
 		  // NOTES: Maybe this will be used for the Reaction Schema
-		  thoughtsSchema: [thoughtSchema], // why does this get pulled in as an array?
+		//   thoughtsSchema: [thoughtSchema], // why does this get pulled in as an array?
 		  // TODO: Array of _id values referencing the User model (self-reference)
 		  // STATUS: test
 		  friends: [{ type: Schema.Types.ObjectId, ref: 'user'}]
