@@ -24,3 +24,12 @@ console.log(today.toJSON()); // 2020-05-12T23:50:21.817Z
 console.log(today.toLocaleString()); // 5/12/2020, 6:50:21 PM
 console.log(today.toLocaleDateString()); // 5/12/2020
 console.log(today.toLocaleTimeString()); // 6:50:21 PM
+
+console.log('getMonth()', today.getMonth()) // Returns a value from 0 to 11. The index starts at 0
+console.log('getDate()', today.getDate())
+console.log('getFullYear()', today.getFullYear())
+
+
+const asyncFunc = async() => {console.log("Hello")}
+// const test = asyncFunc() 
+console.log('test', asyncFunc())

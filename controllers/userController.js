@@ -55,7 +55,7 @@ module.exports = {
 		// TODO: Delete to remove user by its _id
 		deleteUser(req, res){
 			User.findOneAndRemove(
-					{ _id: req.params.userId })
+				{ _id: req.params.userId })
 				.then((user) => {
 					if (!user) {
 						return res.status(404).json({ message: 'No user with this id' })
