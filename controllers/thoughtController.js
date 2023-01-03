@@ -88,12 +88,12 @@ module.exports = {
 	// Post to create a reaction stored in a single thought's reactions array field
 	async createReaction(req, res){
 		try {
-			// const newReaction = await ReactionSchema.create(req.body)
 			const updatedThought = await Thought.
 				findOneAndUpdate(
 					{ _id: req.params.thoughtId },
-					{ $push: {reactions: req.body }},
+					{ $addToSet: {reactions: req.body }},
 					{ new: true })
+				// .populate('reactionId')
 				if(!updatedThought) {
 					return res.status(404).json({ message: 'No thought with this id' })
 				}
