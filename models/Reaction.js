@@ -1,7 +1,7 @@
 // Not a model, but a subdocument schema in the Thought model. It will be the reaction field. 
 // Reference: 28-Stu_Mini-Project > models > Assignment.js
 
-const { Schema } = require('mongoose')
+const { Schema, Types } = require('mongoose')
 
 const formatDate = require('../utils/formatDate')
 
@@ -37,10 +37,11 @@ const reactionSchema = new Schema(
 	{
 		toJSON: {
 			getters: true
-		}
+		},
+		id: false
 	}
 )
 
 // const Reaction = model('reaction', reactionSchema)
 
-module.export = reactionSchema
+module.exports = reactionSchema
