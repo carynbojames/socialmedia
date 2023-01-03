@@ -81,6 +81,7 @@ module.exports = {
 			.then(() => res.json({ message: 'Thought and associated apps deleted'}))
 			.catch((err) => res.status(500).json(err))
 	},
+	// NOTE: It doesn't remove the thoughtId from the user's thought array. This would have to be added as an action.
 
 	// Route - /api/thoughts/:thoughtId/reactions
 	async createReaction(req, res){
