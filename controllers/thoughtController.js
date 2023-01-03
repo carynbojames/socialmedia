@@ -83,22 +83,6 @@ module.exports = {
 	},
 
 	// Route - /api/thoughts/:thoughtId/reactions
-
-	// Post to create a reaction stored in a single thought's reactions array field
-	// createReaction(req, res){
-	// 	Thought.findOneAndUpdate(
-	// 		{ _id: req.params.thoughtId },
-	// 		{ $addToSet: { reactions: req.body }},
-	// 		{ new: true }
-	// 	)
-	// 		.then((thought) => 
-	// 			!thought
-	// 				? res.status(404).json({ message: "No thought with that id" })
-	// 				: res.json(thought)
-	// 		)
-	// 		.catch((err) => res.status(500).json(err))
-	// }, 
-
 	async createReaction(req, res){
 		try {
 			const updatedThought = await Thought.
